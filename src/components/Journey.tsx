@@ -11,7 +11,7 @@ const START = 1988;
 const END = 2028;
 
 const nodes: Node[] = [
-    { id: "be", year: 1990, lane: "edu", title: "B.E., Computer Science & Engineering", place: "SGGS College of Engineering & Technology, Nanded", detail: "First degree, in Computer Science and Engineering." },
+    { id: "be", year: 1990, lane: "edu", title: "B.E.", place: "SGGS College of Engineering & Technology, Nanded", detail: "First engineering degree." },
     { id: "me", year: 1995, lane: "edu", title: "M.E., Electronics", place: "SGGS College of Engineering & Technology, Nanded", detail: "Master's degree in Electronics, the field he has taught and researched since." },
   { id: "qip", year: 2001, end: 2004, lane: "edu", title: "QIP Fellowship", place: "IIT Delhi", detail: "Quality Improvement Programme fellowship for the Ph.D. programme, July 2001 to July 2004." },
   { id: "phd", year: 2008, lane: "edu", title: "Ph.D., Communication and Signal Processing", place: "IIT Delhi", detail: "Doctoral degree awarded in 2008." },

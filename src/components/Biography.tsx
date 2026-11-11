@@ -4,7 +4,7 @@ import { Heading, Reveal, Section } from "./ui";
 const chapters = [
   {
     h: "Training",
-    p: "Sanjay Nalbalwar studied at Shri Guru Gobind Singhji College of Engineering and Technology, Nanded, taking a B.E. in Computer Science and Engineering in 1990 and an M.E. in Electronics in 1995. He joined Dr. Babasaheb Ambedkar Technological University at Lonere on 24 August 1996. A Quality Improvement Programme fellowship (July 2001 to July 2004) took him to IIT Delhi, where he earned his Ph.D. in Communication and Signal Processing in 2008.",
+    p: "Sanjay Nalbalwar studied at Shri Guru Gobind Singhji College of Engineering and Technology, Nanded, taking his B.E. in 1990 and an M.E. in Electronics in 1995. He joined Dr. Babasaheb Ambedkar Technological University at Lonere on 24 August 1996. A Quality Improvement Programme fellowship (July 2001 to July 2004) took him to IIT Delhi, where he earned his Ph.D. in Communication and Signal Processing in 2008.",
   },
   {
     h: "Teaching and research",

@@ -23,7 +23,7 @@ export default function CV() {
       <ul className="list-disc pl-5">
         <li>Ph.D., Communication and Signal Processing, IIT Delhi, 2008 (QIP fellow, 2001–2004)</li>
         <li>M.E., Electronics, SGGS College of Engineering and Technology, Nanded, 1995</li>
-        <li>B.E., Computer Science &amp; Engineering, SGGS College of Engineering and Technology, Nanded, 1990</li>
+        <li>B.E., SGGS College of Engineering and Technology, Nanded, 1990</li>
       </ul>
 
       <H>Appointments</H>
