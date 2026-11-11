@@ -9,9 +9,9 @@ import { profileLinks } from "@/content/profile";
 import { Badge, ExternalLink, Heading, Section, ease, fmtDate } from "./ui";
 
 const PAGE = 10;
-const typeLabel = { journal: "Journal", conference: "Conference", chapter: "Book chapter" } as const;
+const typeLabel = { journal: "Journal", conference: "Conference", chapter: "Book chapter", book: "Book" } as const;
 
-export function Library({ items, live, retrieved }: { items: Publication[]; live: boolean; retrieved: string }) {
+export function Library({ items, live, retrieved, sources }: { items: Publication[]; live: boolean; retrieved: string; sources: { orcid: number; openalex: number; biodata: number } }) {
   const [q, setQ] = useState("");
   const dq = useDeferredValue(q);
   const [domain, setDomain] = useState("All");
@@ -31,7 +31,7 @@ export function Library({ items, live, retrieved }: { items: Publication[]; live
 
   return (
     <Section id="library">
-      <Heading id="library" lead={`${items.length} records. ${live ? `Merged from ORCID (read ${fmtDate(retrieved)}) and the biodata.` : "ORCID could not be reached just now, so only the biodata list is shown."} Titles are as recorded; authorship is on each official record.`}>
+      <Heading id="library" lead={`${items.length} records, merged from ORCID (${sources.orcid}), OpenAlex (${sources.openalex}) and the biodata (${sources.biodata}), with duplicates removed. ${live ? `Live sources read ${fmtDate(retrieved)}.` : "Live sources could not be reached just now, so only the biodata list is shown."} New papers appear here as they reach ORCID or OpenAlex.`}>
         Every listed paper, searchable.
       </Heading>
 
@@ -57,6 +57,7 @@ export function Library({ items, live, retrieved }: { items: Publication[]; live
             <option value="journal">Journal</option>
             <option value="conference">Conference</option>
             <option value="chapter">Book chapter</option>
+            <option value="book">Book</option>
           </select>
         </label>
         <label>
@@ -83,6 +84,12 @@ export function Library({ items, live, retrieved }: { items: Publication[]; live
                 <span className="num text-2xl text-muted">{p.year}</span>
                 <div>
                   <h3 className="font-serif text-[1.3rem] leading-snug">{href ? <ExternalLink href={href}>{p.title}</ExternalLink> : p.title}</h3>
+                  {p.authors && p.authors.length > 0 && (
+                    <p className="mt-1 text-[0.95rem] text-ink2">
+                      {p.authors.slice(0, 8).join(", ")}
+                      {p.authors.length > 8 ? ` and ${p.authors.length - 8} more` : ""}
+                    </p>
+                  )}
                   {p.venue && <p className="mt-1 text-ink2 italic">{p.venue}</p>}
                   {p.indexing && <p className="mt-1 text-sm text-muted">Listed in: {p.indexing}</p>}
                 </div>

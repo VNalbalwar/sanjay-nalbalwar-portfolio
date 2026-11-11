@@ -34,7 +34,7 @@ export default async function Home() {
         <Journey />
         <Impact live={metrics} pubCount={pubs.items.length} />
         <Research items={pubs.items} />
-        <Library items={pubs.items} live={pubs.live} retrieved={pubs.retrieved} />
+        <Library items={pubs.items} live={pubs.live} retrieved={pubs.retrieved} sources={pubs.sources} />
         <Books />
         <Scholars />
         <Patents />

@@ -71,7 +71,7 @@ export function Impact({ live, pubCount }: { live: LiveMetrics; pubCount: number
           <dl className="mt-6 space-y-5">
             {[
               [first.works ?? "", "journal and conference papers, as reported in the biodata"],
-              [`${pubCount}`, "records searchable in the library below, merged from ORCID and the biodata"],
+              [`${pubCount}`, "records searchable in the library below, merged from ORCID, OpenAlex and the biodata"],
               ["5 + 25", "books and book chapters, as reported in the biodata"],
             ].map(([n, l]) => (
               <div key={l} className="border-t border-[var(--line)] pt-4">

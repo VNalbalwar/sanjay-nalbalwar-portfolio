@@ -42,10 +42,11 @@ export type Publication = {
   title: string;
   venue: string;
   year: number;
-  type: "journal" | "conference" | "chapter";
+  type: "journal" | "conference" | "chapter" | "book";
   indexing?: string;
   domain: string;
   doi?: string;
   url?: string;
+  authors?: string[];
   source: "biodata" | "orcid" | "openalex";
 };
