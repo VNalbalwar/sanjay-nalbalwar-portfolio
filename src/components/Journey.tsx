@@ -11,8 +11,8 @@ const START = 1988;
 const END = 2028;
 
 const nodes: Node[] = [
-  { id: "be", year: 1990, lane: "edu", title: "B.E., Electronics Engineering", place: "SGGS College of Engineering & Technology, Nanded", detail: "First degree in Electronics Engineering.", pending: "Supplied by the site owner and absent from the biodata. DBATU's faculty page lists this degree as B.E. (CSE), August 1990; branch to be confirmed." },
-  { id: "me", year: 1995, lane: "edu", title: "M.E., Electronics Engineering", place: "SGGS College of Engineering & Technology, Nanded", detail: "Master's degree in Electronics Engineering.", pending: "Supplied by the site owner and absent from the biodata. DBATU's faculty page gives January 1996; year to be confirmed." },
+    { id: "be", year: 1990, lane: "edu", title: "B.E., Computer Science & Engineering", place: "SGGS College of Engineering & Technology, Nanded", detail: "First degree, in Computer Science and Engineering." },
+    { id: "me", year: 1995, lane: "edu", title: "M.E., Electronics", place: "SGGS College of Engineering & Technology, Nanded", detail: "Master's degree in Electronics, the field he has taught and researched since." },
   { id: "qip", year: 2001, end: 2004, lane: "edu", title: "QIP Fellowship", place: "IIT Delhi", detail: "Quality Improvement Programme fellowship for the Ph.D. programme, July 2001 to July 2004." },
   { id: "phd", year: 2008, lane: "edu", title: "Ph.D., Communication and Signal Processing", place: "IIT Delhi", detail: "Doctoral degree awarded in 2008." },
   { id: "tuljapur", year: 1991, end: 1996, lane: "career", title: "Lecturer, STB College of Engineering, Tuljapur", place: "Earlier appointment", detail: "24 August 1991 to 29 August 1996, after a first lectureship at Dr. P.V.V.P.I. Technology & Engineering, Pravaranagar (September 1990 to August 1991).", pending: "From DBATU's faculty profile; not in the biodata." },
