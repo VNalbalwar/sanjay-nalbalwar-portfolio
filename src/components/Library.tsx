@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion } from "motion/react";
 import { ChevronLeft, ChevronRight, Search } from "lucide-react";
-import { useDeferredValue, useEffect, useMemo, useState } from "react";
+import { useDeferredValue, useMemo, useState } from "react";
 import type { Publication } from "@/content/types";
 import { DOMAINS } from "@/content/publications-biodata";
 import { profileLinks } from "@/content/profile";
@@ -25,7 +25,6 @@ export function Library({ items, live, retrieved }: { items: Publication[]; live
     return items.filter((p) => (domain === "All" || p.domain === domain) && (type === "All" || p.type === type) && (year === "All" || p.year === +year) && (!n || `${p.title} ${p.venue} ${p.indexing ?? ""}`.toLowerCase().includes(n)));
   }, [items, dq, domain, type, year]);
 
-  useEffect(() => setPage(0), [dq, domain, type, year]);
   const pages = Math.max(1, Math.ceil(filtered.length / PAGE));
   const shown = filtered.slice(page * PAGE, page * PAGE + PAGE);
   const sel = "h-11 rounded-[3px] border border-[var(--line)] bg-paper px-3 text-[0.95rem]";
@@ -40,11 +39,11 @@ export function Library({ items, live, retrieved }: { items: Publication[]; live
         <label className="relative block">
           <span className="sr-only">Search publications</span>
           <Search size={16} className="absolute top-1/2 left-3 -translate-y-1/2 text-muted" />
-          <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search titles, journals, indexing" className={`${sel} w-full pl-9`} type="search" />
+          <input value={q} onChange={(e) => { setQ(e.target.value); setPage(0); }} placeholder="Search titles, journals, indexing" className={`${sel} w-full pl-9`} type="search" />
         </label>
         <label>
           <span className="sr-only">Research domain</span>
-          <select value={domain} onChange={(e) => setDomain(e.target.value)} className={`${sel} w-full`}>
+          <select value={domain} onChange={(e) => { setDomain(e.target.value); setPage(0); }} className={`${sel} w-full`}>
             <option>All</option>
             {DOMAINS.map((d) => (
               <option key={d}>{d}</option>
@@ -53,7 +52,7 @@ export function Library({ items, live, retrieved }: { items: Publication[]; live
         </label>
         <label>
           <span className="sr-only">Publication type</span>
-          <select value={type} onChange={(e) => setType(e.target.value)} className={`${sel} w-full`}>
+          <select value={type} onChange={(e) => { setType(e.target.value); setPage(0); }} className={`${sel} w-full`}>
             <option value="All">All types</option>
             <option value="journal">Journal</option>
             <option value="conference">Conference</option>
@@ -62,7 +61,7 @@ export function Library({ items, live, retrieved }: { items: Publication[]; live
         </label>
         <label>
           <span className="sr-only">Year</span>
-          <select value={year} onChange={(e) => setYear(e.target.value)} className={`${sel} w-full`}>
+          <select value={year} onChange={(e) => { setYear(e.target.value); setPage(0); }} className={`${sel} w-full`}>
             <option value="All">All years</option>
             {years.map((y) => (
               <option key={y}>{y}</option>

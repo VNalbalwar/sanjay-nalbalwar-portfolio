@@ -2,13 +2,20 @@
 
 import { AnimatePresence, motion, useScroll, useSpring } from "motion/react";
 import { Moon, Sun, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { sections } from "@/content/sections";
 import { ease } from "./ui";
 
 function ThemeToggle() {
-  const [theme, setTheme] = useState<string>("light");
-  useEffect(() => setTheme(document.documentElement.dataset.theme ?? "light"), []);
+  const theme = useSyncExternalStore(
+    (cb) => {
+      const mo = new MutationObserver(cb);
+      mo.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+      return () => mo.disconnect();
+    },
+    () => document.documentElement.dataset.theme ?? "light",
+    () => "light",
+  );
   const flip = () => {
     const next = theme === "dark" ? "light" : "dark";
     const apply = () => {
@@ -16,11 +23,11 @@ function ThemeToggle() {
       try {
         localStorage.setItem("theme", next);
       } catch {}
-      setTheme(next);
     };
     // View Transitions give a soft cross-fade where supported.
     const d = document as Document & { startViewTransition?: (cb: () => void) => void };
-    d.startViewTransition ? d.startViewTransition(apply) : apply();
+    if (d.startViewTransition) d.startViewTransition(apply);
+    else apply();
   };
   return (
     <button onClick={flip} aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`} className="flex size-10 items-center justify-center rounded-full border border-[var(--line)] transition hover:bg-[var(--line-soft)]">

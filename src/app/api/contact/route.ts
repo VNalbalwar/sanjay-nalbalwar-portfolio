@@ -7,7 +7,7 @@ const schema = z.object({
   email: z.email("Enter a valid email address").max(200),
   organisation: z.string().trim().max(160).optional().default(""),
   message: z.string().trim().min(20, "Write at least 20 characters").max(4000),
-  website: z.string().max(0).optional().default(""), // honeypot: real people leave it empty
+  website: z.string().max(500).optional().default(""), // honeypot: real people leave it empty
   turnstile: z.string().optional(),
 });
 

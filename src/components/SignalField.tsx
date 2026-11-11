@@ -13,7 +13,9 @@ export function SignalField({ className = "" }: { className?: string }) {
   const reduce = useReducedMotion();
   const [paused, setPaused] = useState(false);
   const pausedRef = useRef(false);
-  pausedRef.current = paused || !!reduce;
+  useEffect(() => {
+    pausedRef.current = paused || !!reduce;
+  }, [paused, reduce]);
 
   useEffect(() => {
     const canvas = ref.current!;
@@ -58,7 +60,8 @@ export function SignalField({ className = "" }: { className?: string }) {
       ctx.beginPath();
       for (let x = 0; x <= w; x += 3) {
         const y = rows * 1.1 + ((wave(x, 0, t) + wave(x, 1, t) + wave(x, 2, t)) / 1.9) * rows * 0.8;
-        x ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+        if (x) ctx.lineTo(x, y);
+        else ctx.moveTo(x, y);
       }
       ctx.stroke();
       // bands
@@ -77,7 +80,8 @@ export function SignalField({ className = "" }: { className?: string }) {
         ctx.beginPath();
         for (let x = 0; x <= w; x += 3) {
           const y = cy + wave(x, i, t) * rows * 0.4;
-          x ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+          if (x) ctx.lineTo(x, y);
+          else ctx.moveTo(x, y);
         }
         ctx.stroke();
       });

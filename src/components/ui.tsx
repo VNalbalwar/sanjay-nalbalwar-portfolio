@@ -55,12 +55,13 @@ export function Counter({ to, className, suffix = "", duration = 1.8 }: { to: nu
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "-10% 0px" });
   const reduce = useReducedMotion();
-  const [v, setV] = useState(reduce ? to : 0);
+  const [n, setN] = useState(0);
   useEffect(() => {
-    if (!inView || reduce) return setV(to);
-    const c = animate(0, to, { duration, ease, onUpdate: (n) => setV(Math.round(n)) });
+    if (!inView || reduce) return;
+    const c = animate(0, to, { duration, ease, onUpdate: (x) => setN(Math.round(x)) });
     return () => c.stop();
   }, [inView, to, reduce, duration]);
+  const v = reduce ? to : n;
   return (
     <span ref={ref} className={className} aria-label={`${to.toLocaleString("en-IN")}${suffix}`}>
       <span aria-hidden>{v.toLocaleString("en-IN")}{suffix}</span>
