@@ -12,7 +12,7 @@ const chapters = [
   },
   {
     h: "A research programme across domains",
-    p: "His papers span compressed sensing and wavelets, multirate and non-uniform filter banks, speech enhancement, ECG, HRV and EEG analysis, video stabilisation, wireless sensor networks, and microstrip and MIMO antennas. He has guided nineteen Ph.D. scholars to completion and six more are in progress, along with about a hundred M.Tech. theses and five hundred B.Tech. projects. Five granted patents and four granted designs extend that work into image compression, snake identification, healthcare monitoring and assistive technology.",
+    p: "His papers span compressed sensing and wavelets, multirate and non-uniform filter banks, speech enhancement, ECG, HRV and EEG analysis, video stabilisation, wireless sensor networks, and microstrip and MIMO antennas. He has guided nineteen Ph.D. scholars to completion and six more are in progress, along with about a hundred M.Tech. theses and five hundred B.Tech. projects. Nine patent and design filings, of which two patents and four designs are granted, extend that work into image compression, snake identification, healthcare monitoring and assistive technology.",
   },
   {
     h: "Building the institution",

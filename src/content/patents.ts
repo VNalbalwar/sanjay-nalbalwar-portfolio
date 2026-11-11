@@ -1,9 +1,9 @@
 import type { Patent } from "./types";
 
 /**
- * Source: biodata section 2.4. Entries 1, 4, 5, 8 and 9 are shown as granted on the owner's instruction
- * (the biodata words them as published / under examination / waiting). Grant dates and numbers for those
- * are not recorded; add them here when available.
+ * Source: biodata section 2.4. Granted: the two patents with grant dates, and the four designs (the two UK designs
+ * carry grant dates in the biodata; the two Indian designs are confirmed granted by the owner, dates not recorded).
+ * Not granted: the three Indian patent applications (entries 1, 8, 9).
  */
 export const patents: Patent[] = [
   {
@@ -36,13 +36,13 @@ export const patents: Patent[] = [
     id: "image-compression",
     title: "System and Method for Image Compression",
     kind: "Patent",
-    status: "granted",
+    status: "published-application",
     jurisdiction: "India",
     number: "202421017118",
     numberLabel: "Application No.",
     filed: "2024-03-09",
     published: "2024-05-03",
-    statusDetail: "Granted patent. Published in the Patent Office Journal No. 18/2024 (p. 41454).",
+    statusDetail: "Patent application, published in the Patent Office Journal No. 18/2024 (p. 41454). Examination is done and replies to the examiner's queries are in process. Not yet granted.",
     field: "Image Processing",
     verified: true,
   },
@@ -105,13 +105,13 @@ export const patents: Patent[] = [
     title:
       "Line Segmentation System for Processing Handwritten Devanagari Document Images Using a Mask-Based Approach",
     kind: "Patent",
-    status: "granted",
+    status: "published-application",
     jurisdiction: "India",
     number: "202621042907",
     numberLabel: "Application No.",
     filed: "2026-04-03",
     published: "2026-05-29",
-    statusDetail: "Granted patent. Application published 29 May 2026.",
+    statusDetail: "Patent application, published 29 May 2026. Not yet granted.",
     field: "Document Image Analysis",
     verified: true,
   },
@@ -120,13 +120,13 @@ export const patents: Patent[] = [
     title:
       "Multidimensional Portable Obstacle Detection System Using Multi-Sensor Feedback for Visually Disabled Persons",
     kind: "Patent",
-    status: "granted",
+    status: "published-application",
     jurisdiction: "India",
     number: "202621042906",
     numberLabel: "Application No.",
     filed: "2026-04-03",
     published: "2026-05-29",
-    statusDetail: "Granted patent. Application published 29 May 2026.",
+    statusDetail: "Patent application, published 29 May 2026. Not yet granted.",
     field: "Assistive Technology",
     verified: true,
   },
