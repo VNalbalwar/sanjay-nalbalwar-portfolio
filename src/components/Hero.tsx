@@ -62,9 +62,9 @@ export function Hero() {
           </motion.div>
         </div>
 
-        <motion.figure initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.3, ease, delay: 0.2 }} className="relative mx-auto w-full max-w-[26rem] md:col-span-5 md:max-w-none">
-          <div className="portrait-plate relative aspect-[4/4.4] overflow-hidden rounded-[2px] border border-[var(--line)]">
-            <Image src="/images/portrait.webp" alt="Portrait of Prof. Dr. Sanjay Laxmikant Nalbalwar" fill priority sizes="(min-width: 768px) 40vw, 90vw" className="object-cover object-top" />
+        <motion.figure initial={{ opacity: 0, scale: 0.94 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.3, ease, delay: 0.2 }} className="relative mx-auto w-full max-w-[22rem] p-3 md:col-span-5 md:max-w-[30rem]">
+          <div className="portrait-disc relative aspect-square overflow-hidden rounded-full">
+            <Image src="/images/portrait.webp" alt="Portrait of Prof. Dr. Sanjay Laxmikant Nalbalwar" fill priority sizes="(min-width: 768px) 30rem, 22rem" className="scale-[1.04] object-cover object-[50%_18%]" />
           </div>
         </motion.figure>
       </div>
@@ -86,7 +86,8 @@ export function Hero() {
       <a href="#biography" aria-label="Scroll to biography" className="no-print mx-auto flex w-fit items-center gap-2 py-6 text-sm text-muted transition hover:text-ink">
         <ArrowDown size={15} /> Begin
       </a>
-      <style>{`.portrait-plate{background:#fff}[data-theme=light] .portrait-plate img{mix-blend-mode:multiply}[data-theme=light] .portrait-plate{background:var(--paper);border-color:transparent}`}</style>
+      {/* The portrait's white backdrop multiplies into a soft sage disc in both themes; a brass hairline ring sits just outside it. */}
+      <style>{`.portrait-disc{background:#d9e1d3;box-shadow:0 0 0 10px var(--paper),0 0 0 11px var(--brass)}.portrait-disc img{mix-blend-mode:multiply}`}</style>
     </header>
   );
 }
