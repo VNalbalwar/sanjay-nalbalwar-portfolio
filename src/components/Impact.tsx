@@ -6,10 +6,10 @@ import type { LiveMetrics } from "@/lib/data";
 import { Counter, ExternalLink, Heading, Reveal, Section, fmtDate } from "./ui";
 
 export function Impact({ live, pubCount }: { live: LiveMetrics; pubCount: number }) {
-  const rows = live
-    ? metricSources.map((m) => (m.source === "OpenAlex" ? { ...m, citations: live.citations, hIndex: live.hIndex, i10: live.i10, works: `${live.works} works`, retrieved: live.retrieved, how: "Public API" as const } : m))
-    : metricSources;
-  const first = rows[0];
+  const rows = metricSources
+    .filter((m) => m.source !== "Biodata 2026")
+    .map((m) => (live && m.source === "OpenAlex" ? { ...m, citations: live.citations, hIndex: live.hIndex, i10: live.i10, works: `${live.works} works`, retrieved: live.retrieved, how: "Public API" as const } : m));
+  const first = metricSources[0];
   const cols: { k: "citations" | "hIndex" | "i10"; l: string }[] = [
     { k: "citations", l: "Citations" },
     { k: "hIndex", l: "h-index" },
@@ -29,7 +29,7 @@ export function Impact({ live, pubCount }: { live: LiveMetrics; pubCount: number
               {rows.map((r) => (
                 <div key={r.source} className="flex items-baseline justify-between gap-4 border-t border-[var(--line-soft)] pt-3 first:border-0 first:pt-0">
                   <span className="text-sm text-ink2">{r.source}</span>
-                  <span className={`num ${r === rows[1] ? "text-4xl text-forest" : "text-3xl"}`}>
+                  <span className={`num ${r === rows[0] ? "text-4xl text-forest" : "text-3xl"}`}>
                     <Counter to={r[c.k] ?? 0} />
                   </span>
                 </div>
@@ -98,9 +98,7 @@ export function Impact({ live, pubCount }: { live: LiveMetrics; pubCount: number
                 </ResponsiveContainer>
               </div>
             </>
-          ) : (
-            <p className="text-muted">The live per-year chart is unavailable right now; the figures in the table above remain as recorded.</p>
-          )}
+          ) : null}
         </div>
       </div>
     </Section>

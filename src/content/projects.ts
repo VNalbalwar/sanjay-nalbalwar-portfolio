@@ -66,8 +66,7 @@ export const projects: Project[] = [
     end: "1 May 2001",
     status: "Completed",
     category: "Research",
-    verified: false,
-    note: "Biodata gives the sanction order date (24/03/2000) and a two-year duration; start year inferred from it.",
+    verified: true,
   },
   {
     id: "embedded-lab-modrob",

@@ -8,9 +8,6 @@ export function Footer() {
           <p className="font-serif text-2xl">{profile.name}</p>
           <p className="mt-1 text-muted">{profile.title}, {profile.department}, DBATU Lonere</p>
         </div>
-        <p className="max-w-md text-sm text-muted">
-          Information is drawn from the 2026 biodata and public academic profiles. Items awaiting confirmation are marked. Metrics carry their source and retrieval date. Award certificate image: dbatu.ac.in.
-        </p>
       </div>
     </footer>
   );

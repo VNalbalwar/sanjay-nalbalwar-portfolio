@@ -5,7 +5,7 @@ import { ExternalLink, Heading, Section } from "./ui";
 export function Resources() {
   return (
     <Section id="resources">
-      <Heading id="resources" lead="A concise academic CV is generated from the same verified records as this site, so the two never drift apart. The full biodata is an administrative document and is not published.">
+      <Heading id="resources">
         Resources and profile links.
       </Heading>
       <div className="grid gap-12 md:grid-cols-12">

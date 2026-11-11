@@ -32,7 +32,7 @@ export function Leadership() {
           { n: 9, l: "years across the three phases of the World Bank TEQIP project" },
         ].map((s) => (
           <div key={s.l} className="bg-[var(--forest)] p-6">
-            <p className="num text-5xl text-[var(--brass)]"><Counter to={s.n} /></p>
+            <p className="num text-5xl text-[var(--forest-fg)]"><Counter to={s.n} /></p>
             <p className="mt-2 text-[0.95rem] opacity-90">{s.l}</p>
           </div>
         ))}

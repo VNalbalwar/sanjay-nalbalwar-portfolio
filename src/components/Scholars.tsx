@@ -86,7 +86,6 @@ export function Scholars() {
         ))}
         {list.length === 0 && <li className="py-12 text-center text-muted">No scholars match. Clear the search to see all nineteen.</li>}
       </ol>
-      <p className="mt-4 text-sm text-muted">The six scholars currently being guided are not named in the biodata, so they are not listed.</p>
     </Section>
   );
 }
