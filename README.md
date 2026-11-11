@@ -1,6 +1,6 @@
 # Prof. Sanjay L. Nalbalwar: academic portfolio and digital archive
 
-Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS 4 · Motion · Recharts · Zod · Resend. Free tiers only.
+Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS 4 · Motion · Recharts · Zod · Nodemailer (Gmail SMTP). Free tiers only.
 
 ## Run
 
@@ -20,7 +20,7 @@ such a network, use `npm` (as above).
 src/content/   curated records (TypeScript). Edit these; no component changes needed.
 src/lib/data.ts  live data: ORCID public API (publications) + OpenAlex (metrics), cached 24 h
 src/components/  one component per section, shared primitives in ui.tsx
-src/app/api/contact  validated, rate-limited, Turnstile-checked email via Resend
+src/app/api/contact  validated, rate-limited, Turnstile-checked email via Nodemailer + Gmail
 src/app/cv       print-ready academic CV (Save as PDF), built from the same records
 ```
 

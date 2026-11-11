@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { Resend } from "resend";
+import nodemailer from "nodemailer";
 
 const schema = z.object({
   name: z.string().trim().min(2, "Enter your name").max(120),
@@ -29,6 +29,8 @@ async function turnstileOk(token?: string, ip?: string) {
   return ((await r.json()) as { success?: boolean }).success === true;
 }
 
+export const runtime = "nodejs";
+
 export async function POST(req: Request) {
   const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
   if (limited(ip)) return NextResponse.json({ error: "Too many messages. Please try again in a few minutes." }, { status: 429 });
@@ -48,19 +50,21 @@ export async function POST(req: Request) {
   if (d.website) return NextResponse.json({ ok: true }); // silently drop bots
   if (!(await turnstileOk(d.turnstile, ip))) return NextResponse.json({ error: "Spam check failed. Reload the page and try again." }, { status: 400 });
 
-  const key = process.env.RESEND_API_KEY;
-  const to = process.env.CONTACT_TO_EMAIL;
-  if (!key || !to) return NextResponse.json({ error: "Messaging is not configured yet. Please email directly." }, { status: 503 });
+  // Gmail SMTP with an App Password (a normal Google password is rejected). Set in the host's env vars only.
+  const user = process.env.SMTP_USER;
+  const pass = process.env.SMTP_APP_PASSWORD?.replace(/\s+/g, "");
+  const to = process.env.CONTACT_TO_EMAIL ?? user;
+  if (!user || !pass || !to) return NextResponse.json({ error: "Messaging is not configured yet. Please email directly." }, { status: 503 });
 
   try {
-    const { error } = await new Resend(key).emails.send({
-      from: process.env.CONTACT_FROM_EMAIL ?? "Website contact <onboarding@resend.dev>",
+    const transport = nodemailer.createTransport({ host: "smtp.gmail.com", port: 465, secure: true, auth: { user, pass }, connectionTimeout: 10_000, socketTimeout: 15_000 });
+    await transport.sendMail({
+      from: `"Website contact" <${user}>`,
       to,
-      replyTo: d.email,
-      subject: `Website enquiry from ${d.name}${d.organisation ? `, ${d.organisation}` : ""}`,
+      replyTo: `"${d.name.replace(/["\r\n]/g, "")}" <${d.email}>`,
+      subject: `Website enquiry from ${d.name.replace(/[\r\n]/g, " ")}${d.organisation ? `, ${d.organisation.replace(/[\r\n]/g, " ")}` : ""}`,
       text: `From: ${d.name} <${d.email}>\nOrganisation: ${d.organisation || "—"}\n\n${d.message}`,
     });
-    if (error) throw new Error(error.message);
     return NextResponse.json({ ok: true });
   } catch {
     return NextResponse.json({ error: "The message could not be sent. Please try again or email directly." }, { status: 502 });
