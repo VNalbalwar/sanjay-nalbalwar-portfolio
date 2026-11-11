@@ -26,7 +26,7 @@ export const patents: PatentEntry[] = [
     number: "2024 2101 7118",
     filed: "2024-03-09",
     published: "2024-05-03",
-    remarks: ["Examination is done and reply to queries is under process.", "Patent Office Journal No. 18/2024, p. 41454."],
+    remarks: ["Patent Office Journal No. 18/2024, p. 41454."],
   },
   {
     id: "hypnosis-analysis",
@@ -50,7 +50,6 @@ export const patents: PatentEntry[] = [
     numberLabel: "Application No.",
     number: "483436-001",
     filed: "2025-12-11",
-    remarks: ["Waiting for Technical Examination."],
   },
   {
     id: "ai-healthcare-device",
