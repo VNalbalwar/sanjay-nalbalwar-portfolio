@@ -24,8 +24,8 @@ export function Teaching() {
       </Section>
 
       <Section id="emerging" tone="surface">
-        <Heading id="emerging" lead="Between February 2025 and May 2026 he completed online faculty programmes in quantum technologies, a new field he is learning alongside the one he has taught for decades.">
-          Still learning: ten programmes in quantum technologies.
+        <Heading id="emerging" lead="Between February 2025 and May 2026 he completed seven online faculty programmes in quantum technologies, a new field he is learning alongside the one he has taught for decades.">
+          Still learning: seven programmes in quantum technologies.
         </Heading>
         <ol className="grid gap-x-10 md:grid-cols-2">
           {quantumFdps.map((q, i) => (
@@ -41,7 +41,6 @@ export function Teaching() {
           ))}
         </ol>
         <p className="measure mt-8 text-ink2">{quantumNote}</p>
-        <p className="measure mt-3 text-sm text-muted">The biodata text says seven programmes were completed but lists ten, with QT-04 noted as often covered with QT-03. All ten are shown here as listed, pending confirmation.</p>
         <ul className="mt-14 flex flex-wrap gap-3">
           {["Quantum technologies", "Artificial intelligence", "Signal and image processing", "Emerging communication technologies", "Research and innovation management", "Higher-education leadership", "Academic quality systems", "University transformation"].map((t) => (
             <li key={t} className="rounded-full border border-[var(--line)] px-4 py-2">{t}</li>

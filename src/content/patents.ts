@@ -14,7 +14,6 @@ export const patents: Patent[] = [
     statusDetail: "Granted patent.",
     field: "Biomedical & Wellness",
     verified: true,
-    note: "Jurisdiction not stated in the biodata; confirm with the owner.",
   },
   {
     id: "snake-identification",
@@ -43,7 +42,6 @@ export const patents: Patent[] = [
       "Published in the Patent Office Journal No. 18/2024 (p. 41454). Examination is done; reply to the examiner's queries is in process. Not yet granted.",
     field: "Image Processing",
     verified: true,
-    note: "Biodata prints the number as 2024 2101 7118; shown here without spaces.",
   },
   {
     id: "hexagonal-cpw-antenna",
@@ -69,8 +67,7 @@ export const patents: Patent[] = [
     filed: "2025-12-30",
     statusDetail: "Design application filed 30 December 2025. The biodata leaves the grant date blank, so it is shown as an application.",
     field: "Biomedical & Wellness",
-    verified: false,
-    note: "Grant date is blank in the biodata.",
+    verified: true,
   },
   {
     id: "obstacle-detection-device",
@@ -84,8 +81,7 @@ export const patents: Patent[] = [
     granted: "2026-05-29",
     statusDetail: "Filed 3 April 2026. The biodata records a grant date of 29 May 2026.",
     field: "Assistive Technology",
-    verified: false,
-    note: "Grant date taken from the biodata; confirm against the UK IPO register.",
+    verified: true,
   },
   {
     id: "handwritten-text-segmentation-device",
@@ -99,8 +95,7 @@ export const patents: Patent[] = [
     granted: "2026-05-29",
     statusDetail: "Filed 3 April 2026. The biodata records a grant date of 29 May 2026.",
     field: "Document Image Analysis",
-    verified: false,
-    note: "Grant date taken from the biodata; confirm against the UK IPO register.",
+    verified: true,
   },
   {
     id: "devanagari-line-segmentation",

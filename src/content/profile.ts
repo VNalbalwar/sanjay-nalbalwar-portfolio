@@ -23,9 +23,8 @@ export const profileLinks: ProfileLink[] = [
   {
     id: "adsi",
     label: "AD Scientific Index",
-    url: "https://www.adscientificindex.com/scientist/sanjay-nalbalwarsanjay-nalbalwar-sanjay-l-nalbalwar/4305050",
+    url: "https://adscientificindex.com/scientist/sanjay-nalbalwarsanjay-nalbalwar-sanjay-l-nalbalwar/4305050",
     kind: "research",
-    note: "The biodata links a different AD Index id (4301228); both are awaiting confirmation.",
   },
   { id: "stm", label: "STM Journals editorial profile", url: "https://journals.stmjournals.com/editor-detail/profile/238416/", kind: "editorial" },
   { id: "linkedin", label: "LinkedIn", url: "https://www.linkedin.com/in/dr-sanjay-nalbalwar", kind: "social" },

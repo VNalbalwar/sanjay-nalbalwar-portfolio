@@ -20,7 +20,7 @@ export function personSchema() {
         { "@type": "CollegeOrUniversity", name: "Shri Guru Gobind Singhji Institute of Engineering and Technology, Nanded" },
       ],
       knowsAbout: ["Digital signal processing", "Image processing", "Compressed sensing", "Multirate signal processing", "Biomedical signal processing", "Antenna design", "Quantum technologies"],
-      sameAs: profileLinks.filter((l) => l.id !== "adsi").map((l) => l.url),
+      sameAs: profileLinks.map((l) => l.url),
       identifier: { "@type": "PropertyValue", propertyID: "ORCID", value: "0000-0001-7307-0243" },
     },
   };

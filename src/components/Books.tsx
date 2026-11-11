@@ -13,7 +13,7 @@ export function Books() {
   const b = books[i];
   return (
     <Section id="books" tone="surface">
-      <Heading id="books" lead="Five published books and twenty-five book chapters are recorded in the biodata. The seven titles below are the book entries it lists; one is a reviewer role and one a translation.">
+      <Heading id="books" lead="Five published books and twenty-five book chapters, with the titles below.">
         Textbooks written for the classroom.
       </Heading>
 

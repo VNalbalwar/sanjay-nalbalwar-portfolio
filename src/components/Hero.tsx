@@ -50,7 +50,7 @@ export function Hero() {
               </a>
             </div>
             <p className="mt-8 flex flex-wrap gap-x-5 gap-y-2 text-[0.95rem] text-muted">
-              {profileLinks.filter((l) => l.kind === "research" && l.id !== "adsi").map((l) => (
+              {profileLinks.filter((l) => l.kind === "research").map((l) => (
                 <ExternalLink key={l.id} href={l.url} className="hover:text-ink">
                   {l.label}
                 </ExternalLink>

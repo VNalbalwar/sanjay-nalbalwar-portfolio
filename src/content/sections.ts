@@ -14,8 +14,8 @@ export const sections = [
   { id: "recognition", label: "Awards & memberships", blurb: "Honours and professional bodies" },
   { id: "engagement", label: "Conferences & workshops", blurb: "Abroad, organised, attended and delivered" },
   { id: "teaching", label: "Teaching", blurb: "Courses taught at UG and PG level" },
-  { id: "emerging", label: "Emerging technologies", blurb: "Ten quantum-technology programmes, 2025–26" },
-  { id: "reflections", label: "Reflections", blurb: "In his own words — forthcoming" },
+  { id: "emerging", label: "Emerging technologies", blurb: "Seven quantum-technology programmes, 2025–26" },
+  // { id: "reflections", label: "Reflections", blurb: "In his own words — forthcoming" }, // disabled for now
   { id: "resources", label: "Resources", blurb: "Academic CV and profile links" },
   { id: "contact", label: "Contact", blurb: "Write to Prof. Nalbalwar" },
 ] as const;

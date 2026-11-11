@@ -15,7 +15,7 @@ import { Service } from "@/components/Service";
 import { Recognition } from "@/components/Recognition";
 import { Engagement } from "@/components/Engagement";
 import { Teaching } from "@/components/Teaching";
-import { Reflections } from "@/components/Reflections";
+// import { Reflections } from "@/components/Reflections"; // disabled for now
 import { Resources } from "@/components/Resources";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
@@ -45,7 +45,7 @@ export default async function Home() {
         <Recognition />
         <Engagement />
         <Teaching />
-        <Reflections />
+        {/* <Reflections /> disabled for now */}
         <Resources />
         <Contact />
       </main>
