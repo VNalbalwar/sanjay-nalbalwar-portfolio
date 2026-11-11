@@ -7,8 +7,11 @@ import { Heading, Pending, Section, ease } from "./ui";
 
 type Node = { id: string; year: number; end?: number; lane: "edu" | "career"; title: string; place: string; detail: string; pending?: string };
 
+// Layout: nodes keep chronological order but are spaced at least GAP apart within their lane, so cards never overlap.
 const START = 1988;
-const END = 2028;
+const GAP = 200; // px between neighbouring cards in the same lane (card is 176px wide)
+const PX_PER_YEAR = 70;
+const PAD = 110;
 
 const nodes: Node[] = [
     { id: "be", year: 1990, lane: "edu", title: "B.E.", place: "SGGS College of Engineering & Technology, Nanded", detail: "First engineering degree." },
@@ -26,17 +29,27 @@ const nodes: Node[] = [
   { id: "dean", year: 2019, lane: "career", title: "Dean (Academics)", place: "Faculty of Engineering & Technology", detail: "From 16 October 2019. Quality oversight of 455 affiliated colleges." },
   { id: "senior", year: 2022, lane: "career", title: "Senior Professor (L-15)", place: "DBATU", detail: "From 21 August 2022." },
   { id: "iqac", year: 2023, lane: "career", title: "Director, IQAC", place: "DBATU", detail: "From 15 September 2023." },
-  { id: "quantum", year: 2025, end: 2026, lane: "career", title: "Quantum technologies", place: "Ten online FDPs", detail: "Programmes QT-01 to QT-10 between February 2025 and May 2026." },
+  { id: "quantum", year: 2025, end: 2026, lane: "career", title: "Quantum technologies", place: "Online faculty development programmes", detail: "Seven online faculty development programmes in quantum technologies, between February 2025 and May 2026." },
   { id: "emeritus", year: 2026, lane: "career", title: "Professor Emeritus", place: "DBATU", detail: "From 5 August 2026, after the administrative tenure closed on 31 July 2026." },
 ];
 
-const pct = (y: number) => ((y - START) / (END - START)) * 100;
+function layout(list: Node[]) {
+  const last: Record<Node["lane"], number> = { edu: -1e9, career: -1e9 };
+  return [...list]
+    .sort((a, b) => a.year - b.year || (a.lane === "edu" ? -1 : 1))
+    .map((n) => {
+      const x = Math.max(PAD + (n.year - START) * PX_PER_YEAR, last[n.lane] + GAP);
+      last[n.lane] = x;
+      return { ...n, x };
+    });
+}
+const placed = layout(nodes);
+const RAIL_W = Math.max(...placed.map((n) => n.x)) + PAD;
 
 export function Journey() {
   const [active, setActive] = useState<Node>(nodes[nodes.length - 1]);
   const rail = useRef<HTMLDivElement>(null);
   const scrollBy = (d: number) => rail.current?.scrollBy({ left: d, behavior: "smooth" });
-  const decades = [1990, 2000, 2010, 2020];
 
   return (
     <Section id="journey" tone="surface">
@@ -45,44 +58,40 @@ export function Journey() {
       </Heading>
 
       <div className="mb-3 flex justify-end gap-2 no-print">
-        <button onClick={() => scrollBy(-500)} aria-label="Scroll timeline left" className="flex size-10 items-center justify-center rounded-full border border-[var(--line)] hover:bg-[var(--line-soft)]">
+        <button onClick={() => scrollBy(-600)} aria-label="Scroll timeline left" className="flex size-10 items-center justify-center rounded-full border border-[var(--line)] hover:bg-[var(--line-soft)]">
           <ChevronLeft size={18} />
         </button>
-        <button onClick={() => scrollBy(500)} aria-label="Scroll timeline right" className="flex size-10 items-center justify-center rounded-full border border-[var(--line)] hover:bg-[var(--line-soft)]">
+        <button onClick={() => scrollBy(600)} aria-label="Scroll timeline right" className="flex size-10 items-center justify-center rounded-full border border-[var(--line)] hover:bg-[var(--line-soft)]">
           <ChevronRight size={18} />
         </button>
       </div>
 
       <div ref={rail} className="hscroll -mx-5 overflow-x-auto px-5 sm:-mx-8 sm:px-8" tabIndex={0} aria-label="Career timeline, scrollable">
-        <div className="relative h-[27rem] min-w-[1500px]">
+        <div className="relative h-[26rem]" style={{ width: RAIL_W }}>
           <div className="absolute inset-x-0 top-1/2 h-px bg-[var(--ink)]" />
-          {nodes.filter((n) => n.end).map((n) => (
-            <div key={`r-${n.id}`} className="absolute top-1/2 h-[3px] -translate-y-1/2 bg-[var(--brass)]" style={{ left: `${pct(n.year)}%`, width: `${pct(n.end!) - pct(n.year)}%` }} aria-hidden />
+          {placed.filter((n) => n.end).map((n) => (
+            <div key={`r-${n.id}`} className="absolute top-1/2 h-[3px] -translate-y-1/2 bg-[var(--brass)]" style={{ left: n.x, width: (n.end! - n.year) * PX_PER_YEAR }} aria-hidden />
           ))}
-          {decades.map((d) => (
-            <div key={d} className="absolute top-1/2 -translate-x-1/2" style={{ left: `${pct(d)}%` }}>
-              <div className="h-3 w-px bg-[var(--ink)]" />
-              <span className="num absolute top-4 -translate-x-1/2 text-sm text-muted">{d}</span>
-            </div>
-          ))}
-          {nodes.map((n, i) => {
+          {placed.map((n, i) => {
             const isEdu = n.lane === "edu";
-            const stagger = isEdu ? 0 : (i % 3) * 3.4;
+            const lift = isEdu ? 0 : (i % 2) * 4.6; // rem; alternate depth below the axis
             const on = active.id === n.id;
             return (
-              <button
-                key={n.id}
-                onClick={() => setActive(n)}
-                aria-pressed={on}
-                className="group absolute -translate-x-1/2 text-left"
-                style={{ left: `${pct(n.year)}%`, ...(isEdu ? { bottom: "calc(50% + 14px)" } : { top: `calc(50% + 40px + ${stagger}rem)` }) }}
-              >
-                <span className={`absolute left-1/2 w-px -translate-x-1/2 bg-[var(--line)] ${isEdu ? "top-full h-[14px]" : "bottom-full"}`} style={isEdu ? undefined : { height: `calc(40px + ${stagger}rem)` }} />
-                <motion.span layout className={`block w-40 rounded-[3px] border px-3 py-2.5 text-[0.86rem] leading-snug transition-colors ${on ? "border-[var(--forest)] bg-[var(--forest)] text-[var(--forest-fg)]" : "border-[var(--line)] bg-paper group-hover:border-[var(--ink)]"}`}>
-                  <span className="num block text-base">{n.end ? `${n.year}–${String(n.end).slice(2)}` : n.year}</span>
-                  {n.title}
-                </motion.span>
-              </button>
+              <div key={n.id}>
+                <span className="absolute top-1/2 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[var(--ink)]" style={{ left: n.x }} aria-hidden />
+                <button
+                  onClick={() => setActive(n)}
+                  aria-pressed={on}
+                  className="group absolute -translate-x-1/2 text-left"
+                  style={{ left: n.x, ...(isEdu ? { bottom: "calc(50% + 22px)" } : { top: `calc(50% + 28px + ${lift}rem)` }) }}
+                >
+                  <span className={`absolute left-1/2 w-px -translate-x-1/2 bg-[var(--line)] ${isEdu ? "top-full h-[22px]" : "bottom-full"}`} style={isEdu ? undefined : { height: `calc(28px + ${lift}rem)` }} />
+                  <span className={`block w-44 rounded-[3px] border px-3 py-2.5 text-[0.88rem] leading-snug transition-colors ${on ? "border-[var(--forest)] bg-[var(--forest)] text-[var(--forest-fg)]" : "border-[var(--line)] bg-paper group-hover:border-[var(--ink)]"}`}>
+                    <span className="num block text-base">{n.end ? `${n.year}–${String(n.end).slice(2)}` : n.year}</span>
+                    {n.title}
+                  </span>
+                </button>
+              </div>
             );
           })}
         </div>

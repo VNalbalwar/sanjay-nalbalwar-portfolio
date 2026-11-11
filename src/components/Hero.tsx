@@ -24,13 +24,15 @@ export function Hero() {
     <header id="top" className="relative overflow-hidden px-5 pt-28 sm:px-8 md:pt-32">
       <div className="mx-auto grid max-w-7xl items-end gap-10 md:grid-cols-12">
         <div className="md:col-span-7">
+          {/* Disabled for now:
           <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1, duration: 1 }} className="mb-6 text-ink2">
             Professor Emeritus, Electronics &amp; Telecommunication Engineering
           </motion.p>
+          */}
           <h1 className="text-[clamp(3rem,9.2vw,7.25rem)] leading-[0.95]" aria-label={profile.name}>
-            <span className="block text-[0.34em] leading-none tracking-normal text-muted italic">Prof. Dr.</span>
+            <span className="mb-3 block text-[0.34em] leading-none tracking-normal text-muted italic">Prof. Dr.</span>
             {name.map((w, i) => (
-              <span key={w} className="block overflow-hidden pb-[0.08em]" aria-hidden>
+              <span key={w} className="-mb-[0.02em] block overflow-hidden pt-[0.14em] pb-[0.1em]" aria-hidden>
                 <motion.span className="block" variants={word} custom={i} initial="hidden" animate="show">
                   {w}
                 </motion.span>
