@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { awards, memberships } from "@/content/credentials";
 import { Badge, Heading, Reveal, Section } from "./ui";
 
@@ -27,6 +28,12 @@ export function Recognition() {
                       <h4 className="text-[1.5rem] leading-snug">{a.title}</h4>
                       <p className="mt-1 text-ink2">{a.by}</p>
                       {a.detail && <p className="mt-2 text-[0.95rem] text-muted">{a.detail}</p>}
+                      {a.image && (
+                        <a href={a.image.src} target="_blank" rel="noopener noreferrer" className="group mt-5 block w-full max-w-xs overflow-hidden rounded-[2px] border border-[var(--line)]">
+                          <Image src={a.image.src} alt={a.image.alt} width={a.image.w} height={a.image.h} sizes="320px" className="h-auto w-full transition-transform duration-700 group-hover:scale-[1.03]" />
+                          <span className="sr-only">Open the certificate full size (opens in a new tab)</span>
+                        </a>
+                      )}
                     </div>
                   </li>
                 </Reveal>

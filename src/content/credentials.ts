@@ -33,6 +33,7 @@ export type Award = Verified & {
   year: string;
   kind: "Award" | "Fellowship" | "Appreciation";
   detail?: string;
+  image?: { src: string; alt: string; w: number; h: number; credit: string };
 };
 
 /** Source: biodata section 12. */
@@ -44,7 +45,7 @@ export const awards: Award[] = [
   { title: "Bharat Gaurav Puraskar", by: "KTK Outstanding Achievers and Education Foundation", year: "2023", kind: "Award", verified: true },
   { title: "Felicitation for Technical Book Translation in Marathi", by: "AICTE", year: "15 Jul 2022", kind: "Appreciation", verified: true, detail: "For coordinating the activity for the entire state of Maharashtra." },
   { title: "Award of Excellence in Higher Education", by: "VI Foundation, 3rd Industry Leadership Conclave and Awards (ILCA 2021)", year: "2021", kind: "Award", verified: true },
-  { title: "Indo Asian Distinguished Professor Award", by: "International Multidisciplinary Research Foundation", year: "2021", kind: "Award", verified: true },
+  { title: "Indo Asian Distinguished Professor Award", by: "International Multidisciplinary Research Foundation", year: "5 Oct 2021", kind: "Award", verified: true, detail: "Presented on World Teachers' Day, 5 October 2021, in recognition of consistent superior performance in Electronics & Telecommunication Engineering.", image: { src: "/images/indo-asian-award-2021.webp", alt: "Indo Asian Distinguished Professor Award 2021 certificate issued to Dr. Sanjay Laxmikant Nalbalwar", w: 1000, h: 1413, credit: "Certificate as published on dbatu.ac.in" } },
   { title: "Best Teacher Award (AY 2006–2007)", by: "Dr. Babasaheb Ambedkar Technological University, Lonere", year: "18 Oct 2006", kind: "Award", verified: true },
   { title: "QIP Fellowship for Ph.D. at IIT Delhi", by: "Quality Improvement Programme", year: "Jul 2001 – Jul 2004", kind: "Fellowship", verified: true },
   { title: "Recognised Innovation Ambassador", by: "Ministry of Education's Innovation Cell (MIC)", year: "—", kind: "Appreciation", verified: true },

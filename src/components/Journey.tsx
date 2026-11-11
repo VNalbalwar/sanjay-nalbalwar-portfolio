@@ -11,11 +11,12 @@ const START = 1988;
 const END = 2028;
 
 const nodes: Node[] = [
-  { id: "be", year: 1990, lane: "edu", title: "B.E., Electronics Engineering", place: "SGGS College of Engineering & Technology, Nanded", detail: "First degree in Electronics Engineering.", pending: "Provided by the site owner; not in the biodata." },
-  { id: "me", year: 1995, lane: "edu", title: "M.E., Electronics Engineering", place: "SGGS College of Engineering & Technology, Nanded", detail: "Master's degree in Electronics Engineering.", pending: "Provided by the site owner; not in the biodata." },
+  { id: "be", year: 1990, lane: "edu", title: "B.E., Electronics Engineering", place: "SGGS College of Engineering & Technology, Nanded", detail: "First degree in Electronics Engineering.", pending: "Supplied by the site owner and absent from the biodata. DBATU's faculty page lists this degree as B.E. (CSE), August 1990; branch to be confirmed." },
+  { id: "me", year: 1995, lane: "edu", title: "M.E., Electronics Engineering", place: "SGGS College of Engineering & Technology, Nanded", detail: "Master's degree in Electronics Engineering.", pending: "Supplied by the site owner and absent from the biodata. DBATU's faculty page gives January 1996; year to be confirmed." },
   { id: "qip", year: 2001, end: 2004, lane: "edu", title: "QIP Fellowship", place: "IIT Delhi", detail: "Quality Improvement Programme fellowship for the Ph.D. programme, July 2001 to July 2004." },
   { id: "phd", year: 2008, lane: "edu", title: "Ph.D., Communication and Signal Processing", place: "IIT Delhi", detail: "Doctoral degree awarded in 2008." },
-  { id: "join", year: 1996, lane: "career", title: "Joins DBATU, Lonere", place: "Dr. Babasaheb Ambedkar Technological University", detail: "Date of joining: 24 August 1996." },
+  { id: "tuljapur", year: 1991, end: 1996, lane: "career", title: "Lecturer, STB College of Engineering, Tuljapur", place: "Earlier appointment", detail: "24 August 1991 to 29 August 1996, after a first lectureship at Dr. P.V.V.P.I. Technology & Engineering, Pravaranagar (September 1990 to August 1991).", pending: "From DBATU's faculty profile; not in the biodata." },
+  { id: "join", year: 1996, lane: "career", title: "Joins DBATU, Lonere", place: "Dr. Babasaheb Ambedkar Technological University", detail: "Date of joining: 24 August 1996, per the biodata. DBATU's faculty profile lists his rise through Lecturer (1996), Senior Lecturer (2001), Assistant Professor (2004) and Associate Professor (2007) before Professor in 2012.", pending: "The rank history before 2012 is from DBATU's faculty profile, not the biodata. Its joining date (30 August 1996) also differs from the biodata's." },
   { id: "aicte", year: 2006, lane: "career", title: "AICTE R&D grant", place: "Multirate DSP on fast FPGA", detail: "Rs. 5.75 lakh project begun 1 August 2006, completed 2010." },
   { id: "hod", year: 2010, lane: "career", title: "Head of Department", place: "E&TC Engineering, DBATU", detail: "From 29 May 2010. Also Chairman of the Board of Studies and the Research Committee, and a member of the Academic Council." },
   { id: "prof", year: 2012, lane: "career", title: "Professor (L-14)", place: "DBATU", detail: "From 20 August 2012." },
@@ -55,6 +56,9 @@ export function Journey() {
       <div ref={rail} className="hscroll -mx-5 overflow-x-auto px-5 sm:-mx-8 sm:px-8" tabIndex={0} aria-label="Career timeline, scrollable">
         <div className="relative h-[27rem] min-w-[1500px]">
           <div className="absolute inset-x-0 top-1/2 h-px bg-[var(--ink)]" />
+          {nodes.filter((n) => n.end).map((n) => (
+            <div key={`r-${n.id}`} className="absolute top-1/2 h-[3px] -translate-y-1/2 bg-[var(--brass)]" style={{ left: `${pct(n.year)}%`, width: `${pct(n.end!) - pct(n.year)}%` }} aria-hidden />
+          ))}
           {decades.map((d) => (
             <div key={d} className="absolute top-1/2 -translate-x-1/2" style={{ left: `${pct(d)}%` }}>
               <div className="h-3 w-px bg-[var(--ink)]" />
@@ -73,9 +77,6 @@ export function Journey() {
                 className="group absolute -translate-x-1/2 text-left"
                 style={{ left: `${pct(n.year)}%`, ...(isEdu ? { bottom: "calc(50% + 14px)" } : { top: `calc(50% + 40px + ${stagger}rem)` }) }}
               >
-                {n.end && (
-                  <span className="absolute top-0 left-0 h-px bg-[var(--brass)]" style={{ width: `${(pct(n.end) - pct(n.year)) * 15}px`, top: isEdu ? "auto" : "-1.6rem", bottom: isEdu ? "-0.9rem" : "auto" }} />
-                )}
                 <span className={`absolute left-1/2 w-px -translate-x-1/2 bg-[var(--line)] ${isEdu ? "top-full h-[14px]" : "bottom-full"}`} style={isEdu ? undefined : { height: `calc(40px + ${stagger}rem)` }} />
                 <motion.span layout className={`block w-40 rounded-[3px] border px-3 py-2.5 text-[0.86rem] leading-snug transition-colors ${on ? "border-[var(--forest)] bg-[var(--forest)] text-[var(--forest-fg)]" : "border-[var(--line)] bg-paper group-hover:border-[var(--ink)]"}`}>
                   <span className="num block text-base">{n.end ? `${n.year}–${String(n.end).slice(2)}` : n.year}</span>
@@ -84,8 +85,6 @@ export function Journey() {
               </button>
             );
           })}
-          <div className="absolute top-3 left-0 text-sm text-muted">Education</div>
-          <div className="absolute bottom-3 left-0 text-sm text-muted">Appointments &amp; responsibilities</div>
         </div>
       </div>
 

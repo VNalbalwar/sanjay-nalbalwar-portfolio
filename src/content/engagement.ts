@@ -56,7 +56,7 @@ export const courses = {
 export const editorial = [
   { role: "Editor", journal: "Journal of Advances in Engineering and Technology", publisher: "Asia Pacific Science Press", term: "Three years from 18 Jan 2026", detail: "ISSN (O) 3005-7507 · ISSN (P) 3005-7493" },
   { role: "Editor", journal: "IETE Journal of Research", publisher: "Taylor & Francis", term: "Two years" },
-  { role: "Editor", journal: "International Journal of Optical Innovations & Research", publisher: "STM Journals", term: "From 30 Apr 2026" },
+  { role: "Editor", journal: "International Journal of Optical Innovations & Research", publisher: "STM Journals", term: "From 30 Apr 2026", detail: "STM's own editor page lists him as Editor of the International Journal of Satellite Remote Sensing; the title is to be confirmed." },
   { role: "Editorial Board Member", journal: "International Journal of Artificial Intelligence, Information Technology and Computer Engineering (IJAIITCE)", publisher: "Varad Publishing House", term: "Two years" },
   { role: "Associate Editor", journal: "IEEE Journal of Signal Processing Systems Letters", publisher: "IEEE", term: "Two years", detail: "Biodata: “Journal of SPS Letters”; exact title to be confirmed." },
 ];
