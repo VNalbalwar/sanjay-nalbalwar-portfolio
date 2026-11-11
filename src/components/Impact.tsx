@@ -9,7 +9,6 @@ export function Impact({ live, pubCount }: { live: LiveMetrics; pubCount: number
   const rows = metricSources
     .filter((m) => m.source !== "Biodata 2026")
     .map((m) => (live && m.source === "OpenAlex" ? { ...m, citations: live.citations, hIndex: live.hIndex, i10: live.i10, works: `${live.works} works`, retrieved: live.retrieved, how: "Public API" as const } : m));
-  const first = metricSources[0];
   const cols: { k: "citations" | "hIndex" | "i10"; l: string }[] = [
     { k: "citations", l: "Citations" },
     { k: "hIndex", l: "h-index" },
@@ -70,9 +69,7 @@ export function Impact({ live, pubCount }: { live: LiveMetrics; pubCount: number
           <h3 className="text-3xl">Output beyond citations</h3>
           <dl className="mt-6 space-y-5">
             {[
-              [first.works ?? "", "journal and conference papers, as reported in the biodata"],
-              [`${pubCount}`, "records searchable in the library below, merged from ORCID, OpenAlex and the biodata"],
-              ["5 + 25", "books and book chapters, as reported in the biodata"],
+              [`${pubCount}`, "publication records, searchable in the library below"],
             ].map(([n, l]) => (
               <div key={l} className="border-t border-[var(--line)] pt-4">
                 <dt className="num text-2xl">{n}</dt>
