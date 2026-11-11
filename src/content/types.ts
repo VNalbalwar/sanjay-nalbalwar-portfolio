@@ -1,0 +1,72 @@
+/** Every curated record carries a verification flag so the UI can mark unconfirmed items. */
+export type Verified = {
+  /** true = confirmed against the biodata or an official source */
+  verified: boolean;
+  /** why it is unconfirmed, shown to the owner/visitor */
+  note?: string;
+};
+
+export type PatentStatus =
+  | "granted"
+  | "published-application"
+  | "design-registered"
+  | "design-application";
+
+export type Patent = Verified & {
+  id: string;
+  title: string;
+  kind: "Patent" | "Design";
+  status: PatentStatus;
+  jurisdiction: string;
+  number: string;
+  numberLabel: string; // "Patent No." | "Application No." | "Design No."
+  filed?: string;
+  published?: string;
+  granted?: string;
+  statusDetail: string;
+  field: string;
+};
+
+export type Role = Verified & {
+  title: string;
+  org: string;
+  from: string; // ISO-ish or year
+  to: string | "present";
+  group: "academic" | "administrative" | "statutory" | "national" | "external";
+  summary?: string;
+  current?: boolean;
+};
+
+export type Project = Verified & {
+  id: string;
+  title: string;
+  agency: string;
+  value: string;
+  start: string;
+  end?: string;
+  status: "Completed" | "Ongoing" | "Status not stated";
+  category: "Research" | "Laboratory & Infrastructure" | "Institutional Development" | "Innovation & Industry";
+  note?: string;
+};
+
+export type Scholar = Verified & {
+  roll: string;
+  name: string;
+  title: string;
+  year: number;
+  domain: string;
+  coGuide?: string;
+  role: "Guide" | "Co-guide";
+};
+
+export type Publication = {
+  title: string;
+  venue: string;
+  year: number;
+  type: "journal" | "conference" | "chapter";
+  indexing?: string;
+  domain: string;
+  doi?: string;
+  url?: string;
+  source: "biodata" | "orcid" | "openalex";
+};

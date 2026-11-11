@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+/* Palette drawn from the portrait: bottle-green bandhgala, pale sage embroidery, brass spectacle frames. */
+:root {
+  --paper: #eceee6;
+  --surface: #f6f7f1;
+  --sunk: #e0e4da;
+  --ink: #0e1a15;
+  --ink-2: #384941;
+  --muted: #566860;
+  --line: rgb(14 26 21 / 0.16);
+  --line-soft: rgb(14 26 21 / 0.08);
+  --forest: #1c3a2d;
+  --forest-fg: #eef2ea;
+  --sage: #4b8a68;
+  --brass: #b08a3e;
+  --brass-ink: #735616;
+  --oxide: #8a3a2c;
+  --band-1: #1c3a2d;
+  --band-2: #4b8a68;
+  --band-3: #b08a3e;
+  color-scheme: light;
+}
+:root[data-theme="dark"] {
+  --paper: #0a120e;
+  --surface: #101b15;
+  --sunk: #0d1611;
+  --ink: #e9eee7;
+  --ink-2: #bdc9c1;
+  --muted: #8fa197;
+  --line: rgb(233 238 231 / 0.16);
+  --line-soft: rgb(233 238 231 / 0.08);
+  --forest: #7dbe9b;
+  --forest-fg: #0a120e;
+  --sage: #7dbe9b;
+  --brass: #d4b060;
+  --brass-ink: #d9b96d;
+  --oxide: #e0907e;
+  --band-1: #7dbe9b;
+  --band-2: #4b8a68;
+  --band-3: #d4b060;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-sunk: var(--sunk);
+  --color-ink: var(--ink);
+  --color-ink2: var(--ink-2);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-forest: var(--forest);
+  --color-sage: var(--sage);
+  --color-brass: var(--brass);
+  --color-brassink: var(--brass-ink);
+  --color-oxide: var(--oxide);
+  --font-serif: var(--font-newsreader), "Iowan Old Style", Georgia, serif;
+  --font-sans: var(--font-hanken), system-ui, sans-serif;
+}
+
+@layer base {
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
+  background: var(--paper);
+}
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  font-variant-numeric: tabular-nums;
+  text-rendering: optimizeLegibility;
+  transition: background-color 0.45s ease, color 0.45s ease;
+}
+h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 400; text-wrap: balance; letter-spacing: -0.015em; line-height: 1.08; }
+p { text-wrap: pretty; }
+::selection { background: var(--brass); color: #0a120e; }
+:focus-visible { outline: 2px solid var(--brass); outline-offset: 3px; border-radius: 2px; }
+a { text-underline-offset: 0.22em; text-decoration-thickness: 1px; }
+
+/* themed scrollbar */
+* { scrollbar-width: thin; scrollbar-color: var(--line) transparent; }
+input, select, textarea, button { font: inherit; color: inherit; }
+input::placeholder, textarea::placeholder { color: var(--muted); }
+input, textarea { caret-color: var(--brass); }
+
+}
+
+.rule { border-top: 1px solid var(--line); }
+.hair { border-color: var(--line); }
+.measure { max-width: 68ch; }
+.num { font-family: var(--font-serif); font-variant-numeric: lining-nums tabular-nums; letter-spacing: -0.03em; }
+.link { background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size 0.35s cubic-bezier(0.2, 0.8, 0.2, 1); text-decoration: none; }
+.link:hover, .link:focus-visible { background-size: 100% 1px; }
+.hscroll { scrollbar-width: none; }
+.hscroll::-webkit-scrollbar { display: none; }
+
+@keyframes draw { to { stroke-dashoffset: 0; } }
+@keyframes pulse-dot { 0%, 100% { opacity: 0.35; } 50% { opacity: 1; } }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+}
+
+@media print {
+  nav, .no-print { display: none !important; }
+  body { background: #fff; color: #000; font-size: 10.5pt; }
+  :root { --paper: #fff; --ink: #000; --muted: #333; --line: #bbb; }
+  a { text-decoration: none; color: inherit; }
+  section { break-inside: avoid-page; }
+}
