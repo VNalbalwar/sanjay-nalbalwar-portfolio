@@ -6,7 +6,7 @@ export const sections = [
   { id: "library", label: "Publications library", blurb: "Search and filter every listed paper" },
   { id: "books", label: "Books", blurb: "Textbooks and the Marathi translation drive" },
   { id: "scholars", label: "Ph.D. mentorship", blurb: "Nineteen doctorates, with their topics" },
-  { id: "patents", label: "Patents & designs", blurb: "Granted, published and pending, kept apart" },
+  { id: "patents", label: "Patents & designs", blurb: "Granted patents and designs, and published applications" },
   { id: "projects", label: "Projects & funding", blurb: "Research grants and institutional development" },
   { id: "leadership", label: "Leadership & governance", blurb: "DBATU, NEP-2020, quality and state committees" },
   { id: "innovation", label: "Innovation & incubation", blurb: "DFIIE, hackathons and the start-up pipeline" },

@@ -9,8 +9,7 @@ export type Verified = {
 export type PatentStatus =
   | "granted"
   | "published-application"
-  | "design-registered"
-  | "design-application";
+  | "design-granted";
 
 export type Patent = Verified & {
   id: string;

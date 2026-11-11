@@ -9,10 +9,9 @@ import { Heading, Pending, Section, ease, fmtDate } from "./ui";
 const look: Record<PatentStatus, { stamp: string; ring: string; text: string }> = {
   granted: { stamp: "GRANTED", ring: "border-[var(--forest)]", text: "text-forest" },
   "published-application": { stamp: "PUBLISHED APPLICATION", ring: "border-[var(--brass)]", text: "text-brassink" },
-  "design-registered": { stamp: "DESIGN, GRANT RECORDED", ring: "border-[var(--sage)]", text: "text-forest" },
-  "design-application": { stamp: "DESIGN APPLICATION", ring: "border-[var(--muted)]", text: "text-muted" },
+  "design-granted": { stamp: "GRANTED DESIGN", ring: "border-[var(--forest)]", text: "text-forest" },
 };
-const order: PatentStatus[] = ["granted", "design-registered", "published-application", "design-application"];
+const order: PatentStatus[] = ["granted", "design-granted", "published-application"];
 
 export function Patents() {
   const [f, setF] = useState<PatentStatus | "all">("all");
@@ -20,7 +19,7 @@ export function Patents() {
   const count = (s: PatentStatus) => patents.filter((p) => p.status === s).length;
   return (
     <Section id="patents" tone="surface">
-      <Heading id="patents" lead="Status is quoted from the biodata and never rounded up. Only two entries are stated there as granted patents; the rest are applications or designs, labelled as such.">
+      <Heading id="patents" lead="Two patents and four designs are granted. Three Indian patent applications have been published and are awaiting grant; they are shown as applications, not as patents.">
         An intellectual property register.
       </Heading>
 
@@ -47,7 +46,7 @@ export function Patents() {
               <dd>{p.jurisdiction}</dd>
               {p.filed && (<><dt className="text-muted">Filed</dt><dd>{fmtDate(p.filed)}</dd></>)}
               {p.published && (<><dt className="text-muted">Published</dt><dd>{fmtDate(p.published)}</dd></>)}
-              {p.granted && (<><dt className="text-muted">{p.status === "design-registered" ? "Grant recorded" : "Granted"}</dt><dd>{fmtDate(p.granted)}</dd></>)}
+              {p.granted && (<><dt className="text-muted">Granted</dt><dd>{fmtDate(p.granted)}</dd></>)}
             </dl>
             <p className="mt-5 text-[0.95rem] text-ink2">{p.statusDetail}</p>
             {!p.verified && (
