@@ -4,3 +4,5 @@ node_modules
 .private/
 next-env.d.ts
 *.tsbuildinfo
+.vercel
+.env*
