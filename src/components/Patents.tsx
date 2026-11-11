@@ -11,7 +11,7 @@ const look: Record<PatentStatus, { stamp: string; ring: string; text: string }> 
   "published-application": { stamp: "PUBLISHED APPLICATION", ring: "border-[var(--brass)]", text: "text-brassink" },
   "design-granted": { stamp: "GRANTED DESIGN", ring: "border-[var(--forest)]", text: "text-forest" },
 };
-const order: PatentStatus[] = ["granted", "design-granted", "published-application"];
+const order: PatentStatus[] = ["granted", "design-granted"];
 
 export function Patents() {
   const [f, setF] = useState<PatentStatus | "all">("all");
@@ -19,7 +19,7 @@ export function Patents() {
   const count = (s: PatentStatus) => patents.filter((p) => p.status === s).length;
   return (
     <Section id="patents" tone="surface">
-      <Heading id="patents" lead="Two patents and four designs are granted. Three Indian patent applications have been published and are awaiting grant; they are shown as applications, not as patents.">
+      <Heading id="patents" lead="Five patents and four designs, all granted. Each entry shows its number, jurisdiction and the dates on record.">
         An intellectual property register.
       </Heading>
 

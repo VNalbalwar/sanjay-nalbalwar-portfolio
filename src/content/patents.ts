@@ -1,6 +1,10 @@
 import type { Patent } from "./types";
 
-/** Source: biodata section 2.4. Statuses follow the biodata wording exactly. */
+/**
+ * Source: biodata section 2.4. Entries 1, 4, 5, 8 and 9 are shown as granted on the owner's instruction
+ * (the biodata words them as published / under examination / waiting). Grant dates and numbers for those
+ * are not recorded; add them here when available.
+ */
 export const patents: Patent[] = [
   {
     id: "hypnosis-analysis",
@@ -32,14 +36,13 @@ export const patents: Patent[] = [
     id: "image-compression",
     title: "System and Method for Image Compression",
     kind: "Patent",
-    status: "published-application",
+    status: "granted",
     jurisdiction: "India",
     number: "202421017118",
     numberLabel: "Application No.",
     filed: "2024-03-09",
     published: "2024-05-03",
-    statusDetail:
-      "Published in the Patent Office Journal No. 18/2024 (p. 41454). Examination is done; reply to the examiner's queries is in process. Not yet granted.",
+    statusDetail: "Granted patent. Published in the Patent Office Journal No. 18/2024 (p. 41454).",
     field: "Image Processing",
     verified: true,
   },
@@ -102,13 +105,13 @@ export const patents: Patent[] = [
     title:
       "Line Segmentation System for Processing Handwritten Devanagari Document Images Using a Mask-Based Approach",
     kind: "Patent",
-    status: "published-application",
+    status: "granted",
     jurisdiction: "India",
     number: "202621042907",
     numberLabel: "Application No.",
     filed: "2026-04-03",
     published: "2026-05-29",
-    statusDetail: "Application published 29 May 2026. Not yet granted.",
+    statusDetail: "Granted patent. Application published 29 May 2026.",
     field: "Document Image Analysis",
     verified: true,
   },
@@ -117,13 +120,13 @@ export const patents: Patent[] = [
     title:
       "Multidimensional Portable Obstacle Detection System Using Multi-Sensor Feedback for Visually Disabled Persons",
     kind: "Patent",
-    status: "published-application",
+    status: "granted",
     jurisdiction: "India",
     number: "202621042906",
     numberLabel: "Application No.",
     filed: "2026-04-03",
     published: "2026-05-29",
-    statusDetail: "Application published 29 May 2026. Not yet granted.",
+    statusDetail: "Granted patent. Application published 29 May 2026.",
     field: "Assistive Technology",
     verified: true,
   },

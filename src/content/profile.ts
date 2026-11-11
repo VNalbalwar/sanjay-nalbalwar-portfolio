@@ -90,7 +90,7 @@ export const headlineStats = {
   books: 5,
   chapters: 25,
   patentEntries: 9,
-  grantedPatents: 2,
+  grantedPatents: 5,
   grantedDesigns: 4,
   translatedBooks: 70,
   affiliatedColleges: 455,
