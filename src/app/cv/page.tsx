@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { profile, profileLinks, metricSources } from "@/content/profile";
 import { ranks, leadership } from "@/content/career";
-import { patents, patentStatusLabel } from "@/content/patents";
+import { patents } from "@/content/patents";
 import { scholarStats } from "@/content/scholars";
 import { books, awards } from "@/content/credentials";
 import { PrintButton } from "./PrintButton";
@@ -43,7 +43,7 @@ export default function CV() {
       <ul className="list-disc pl-5">{books.map((b) => <li key={b.title}>{b.title}. {b.publisher}.{b.isbn ? ` ISBN ${b.isbn}.` : ""}</li>)}</ul>
 
       <H>Patents and designs</H>
-      <ul className="list-disc pl-5">{patents.map((p) => <li key={p.id}>{p.title}. {patentStatusLabel[p.status]}, {p.numberLabel} {p.number}.</li>)}</ul>
+      <ul className="list-disc pl-5">{patents.map((p) => <li key={p.id}>{p.title}. {p.numberLabel} {p.number}{p.granted ? `, granted ${p.granted}` : ""}.</li>)}</ul>
 
       <H>Awards</H>
       <ul className="list-disc pl-5">{awards.map((a) => <li key={a.title}>{a.title}, {a.by}, {a.year}</li>)}</ul>

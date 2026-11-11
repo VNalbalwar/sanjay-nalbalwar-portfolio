@@ -1,139 +1,99 @@
-import type { Patent } from "./types";
-
 /**
- * Source: biodata section 2.4. Granted: the two patents with grant dates, and the four designs (the two UK designs
- * carry grant dates in the biodata; the two Indian designs are confirmed granted by the owner, dates not recorded).
- * Not granted: the three Indian patent applications (entries 1, 8, 9).
+ * Source: biodata section 2.4, in the biodata's own order and wording.
+ * Rule: show only what the biodata states. A field that is not stated is left out (never inferred).
+ * Dates are ISO (the biodata writes them day/month/year).
  */
-export const patents: Patent[] = [
+export type PatentEntry = {
+  id: string;
+  title: string;
+  /** Wording the biodata uses for the type, if it gives one */
+  type?: string;
+  numberLabel: string;
+  number: string;
+  jurisdiction?: string;
+  filed?: string;
+  published?: string;
+  granted?: string;
+  /** Extra statements from the biodata, kept in its words */
+  remarks?: string[];
+};
+
+export const patents: PatentEntry[] = [
+  {
+    id: "image-compression",
+    title: "System and Method for Image Compression",
+    numberLabel: "Application No.",
+    number: "2024 2101 7118",
+    filed: "2024-03-09",
+    published: "2024-05-03",
+    remarks: ["Examination is done and reply to queries is under process.", "Patent Office Journal No. 18/2024, p. 41454."],
+  },
   {
     id: "hypnosis-analysis",
     title: "System for Hypnosis Analysis for Stress Reduction Using Imagery",
-    kind: "Patent",
-    status: "granted",
-    jurisdiction: "Jurisdiction not stated in biodata",
-    number: "445334",
     numberLabel: "Patent No.",
+    number: "445334",
     granted: "2022-06-21",
-    statusDetail: "Granted patent.",
-    field: "Biomedical & Wellness",
-    verified: true,
   },
   {
     id: "snake-identification",
     title: "System to Identify a Snake and a Method Thereof",
-    kind: "Patent",
-    status: "granted",
-    jurisdiction: "Republic of South Africa",
-    number: "2022/09386",
     numberLabel: "Patent No.",
+    number: "2022/09386",
+    jurisdiction: "Republic of South Africa",
     granted: "2022-12-21",
-    statusDetail: "Granted in the Republic of South Africa.",
-    field: "Image Processing",
-    verified: true,
-  },
-  {
-    id: "image-compression",
-    title: "System and Method for Image Compression",
-    kind: "Patent",
-    status: "published-application",
-    jurisdiction: "India",
-    number: "202421017118",
-    numberLabel: "Application No.",
-    filed: "2024-03-09",
-    published: "2024-05-03",
-    statusDetail: "Patent application, published in the Patent Office Journal No. 18/2024 (p. 41454). Examination is done and replies to the examiner's queries are in process. Not yet granted.",
-    field: "Image Processing",
-    verified: true,
   },
   {
     id: "hexagonal-cpw-antenna",
     title: "Hexagonal Shaped CPW FED Dual Band Antenna",
-    kind: "Design",
-    status: "design-granted",
-    jurisdiction: "India",
+    type: "Design Patent",
+    numberLabel: "Application No.",
     number: "483436-001",
-    numberLabel: "Design Application No.",
     filed: "2025-12-11",
-    statusDetail: "Design registered. Application filed 11 December 2025.",
-    field: "Antennas & Wireless",
-    verified: true,
+    remarks: ["Waiting for Technical Examination."],
   },
   {
     id: "ai-healthcare-device",
     title: "An Electronics Device for AI-Assisted Healthcare Monitoring Applications",
-    kind: "Design",
-    status: "design-granted",
-    jurisdiction: "India",
+    type: "Design Patent",
+    numberLabel: "Application No.",
     number: "485593-001",
-    numberLabel: "Design Application No.",
     filed: "2025-12-30",
-    statusDetail: "Design registered. Application filed 30 December 2025.",
-    field: "Biomedical & Wellness",
-    verified: true,
   },
   {
     id: "obstacle-detection-device",
     title: "Multi-Directional Obstacle Detection Computing Device",
-    kind: "Design",
-    status: "design-granted",
-    jurisdiction: "United Kingdom (international design)",
-    number: "6518161",
+    type: "UK International Design Patent",
     numberLabel: "Design Application No.",
+    number: "6518161",
+    jurisdiction: "United Kingdom",
     filed: "2026-04-03",
     granted: "2026-05-29",
-    statusDetail: "Design registered. Filed 3 April 2026; granted 29 May 2026.",
-    field: "Assistive Technology",
-    verified: true,
   },
   {
     id: "handwritten-text-segmentation-device",
     title: "Computing Device for Mask-Driven Segmentation of Handwritten Text Lines",
-    kind: "Design",
-    status: "design-granted",
-    jurisdiction: "United Kingdom (international design)",
-    number: "6518162",
+    type: "UK International Design Patent",
     numberLabel: "Design Application No.",
+    number: "6518162",
+    jurisdiction: "United Kingdom",
     filed: "2026-04-03",
     granted: "2026-05-29",
-    statusDetail: "Design registered. Filed 3 April 2026; granted 29 May 2026.",
-    field: "Document Image Analysis",
-    verified: true,
   },
   {
     id: "devanagari-line-segmentation",
-    title:
-      "Line Segmentation System for Processing Handwritten Devanagari Document Images Using a Mask-Based Approach",
-    kind: "Patent",
-    status: "published-application",
-    jurisdiction: "India",
-    number: "202621042907",
+    title: "Line Segmentation System for Processing Handwritten Devanagari Document Images Using a Mask-Based Approach",
     numberLabel: "Application No.",
+    number: "202621042907",
     filed: "2026-04-03",
     published: "2026-05-29",
-    statusDetail: "Patent application, published 29 May 2026. Not yet granted.",
-    field: "Document Image Analysis",
-    verified: true,
   },
   {
     id: "portable-obstacle-detection",
-    title:
-      "Multidimensional Portable Obstacle Detection System Using Multi-Sensor Feedback for Visually Disabled Persons",
-    kind: "Patent",
-    status: "published-application",
-    jurisdiction: "India",
-    number: "202621042906",
+    title: "Multidimensional Portable Obstacle Detection System Using Multi-Sensor Feedback for Visually Disabled Persons",
     numberLabel: "Application No.",
+    number: "202621042906",
     filed: "2026-04-03",
     published: "2026-05-29",
-    statusDetail: "Patent application, published 29 May 2026. Not yet granted.",
-    field: "Assistive Technology",
-    verified: true,
   },
 ];
-
-export const patentStatusLabel: Record<Patent["status"], string> = {
-  granted: "Granted patent",
-  "published-application": "Published application",
-  "design-granted": "Granted design",
-};

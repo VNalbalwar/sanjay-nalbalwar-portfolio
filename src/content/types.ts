@@ -6,26 +6,6 @@ export type Verified = {
   note?: string;
 };
 
-export type PatentStatus =
-  | "granted"
-  | "published-application"
-  | "design-granted";
-
-export type Patent = Verified & {
-  id: string;
-  title: string;
-  kind: "Patent" | "Design";
-  status: PatentStatus;
-  jurisdiction: string;
-  number: string;
-  numberLabel: string; // "Patent No." | "Application No." | "Design No."
-  filed?: string;
-  published?: string;
-  granted?: string;
-  statusDetail: string;
-  field: string;
-};
-
 export type Role = Verified & {
   title: string;
   org: string;
