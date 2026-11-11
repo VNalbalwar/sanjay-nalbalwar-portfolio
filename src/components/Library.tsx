@@ -11,7 +11,7 @@ import { Badge, ExternalLink, Heading, Section, ease, fmtDate } from "./ui";
 const PAGE = 10;
 const typeLabel = { journal: "Journal", conference: "Conference", chapter: "Book chapter", book: "Book" } as const;
 
-export function Library({ items, live, retrieved, sources }: { items: Publication[]; live: boolean; retrieved: string; sources: { orcid: number; openalex: number; biodata: number } }) {
+export function Library({ items, live, retrieved, sources, openAlexLive, snapshotDate }: { items: Publication[]; live: boolean; retrieved: string; sources: { orcid: number; openalex: number; biodata: number }; openAlexLive: boolean; snapshotDate: string }) {
   const [q, setQ] = useState("");
   const dq = useDeferredValue(q);
   const [domain, setDomain] = useState("All");
@@ -31,7 +31,7 @@ export function Library({ items, live, retrieved, sources }: { items: Publicatio
 
   return (
     <Section id="library">
-      <Heading id="library" lead={`${items.length} records, merged from ORCID (${sources.orcid}), OpenAlex (${sources.openalex}) and the biodata (${sources.biodata}), with duplicates removed. ${live ? `Live sources read ${fmtDate(retrieved)}.` : "Live sources could not be reached just now, so only the biodata list is shown."} New papers appear here as they reach ORCID or OpenAlex.`}>
+      <Heading id="library" lead={`${items.length} records, merged from ORCID (${sources.orcid}), OpenAlex (${sources.openalex}) and the biodata (${sources.biodata}), with duplicates removed. ${live ? `ORCID read ${fmtDate(retrieved)}.` : "ORCID could not be reached just now."} ${openAlexLive ? "OpenAlex read live." : `OpenAlex shown from its ${fmtDate(snapshotDate)} copy.`} New papers appear here as they reach ORCID or OpenAlex.`}>
         Every listed paper, searchable.
       </Heading>
 

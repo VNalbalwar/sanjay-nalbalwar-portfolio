@@ -1,9 +1,12 @@
 import { biodataPublications, inferDomain } from "@/content/publications-biodata";
 import type { Publication } from "@/content/types";
+import snapshot from "@/content/openalex-snapshot.json";
 
 const ORCID = "0000-0001-7307-0243";
 const OPENALEX_AUTHOR = "A5058413396";
 const DAY = 60 * 60 * 24;
+// Optional free key (openalex.org/settings/api). Without it, requests share a small daily budget per IP, which shared build servers can exhaust.
+const oaKey = () => (process.env.OPENALEX_API_KEY ? `&api_key=${process.env.OPENALEX_API_KEY}` : "");
 
 // Title key: ignores case, punctuation, hyphens and British/American "-isation/-ization" spelling.
 const norm = (s: string) => s.toLowerCase().replace(/-/g, "").replace(/isation/g, "ization").replace(/[^a-z0-9]+/g, " ").trim();
@@ -75,7 +78,7 @@ async function fetchOpenAlexWorks(): Promise<Publication[]> {
   const out: Publication[] = [];
   let cursor = "*";
   for (let page = 0; page < 5 && cursor; page++) {
-    const url = `https://api.openalex.org/works?filter=author.id:${OPENALEX_AUTHOR}&per-page=200&cursor=${encodeURIComponent(cursor)}&select=title,publication_year,doi,type,primary_location,authorships`;
+    const url = `https://api.openalex.org/works?filter=author.id:${OPENALEX_AUTHOR}&per-page=200&cursor=${encodeURIComponent(cursor)}&select=title,publication_year,doi,type,primary_location,authorships${oaKey()}`;
     const res = await fetch(url, { next: { revalidate: DAY, tags: ["publications"] } });
     if (!res.ok) throw new Error(`OpenAlex ${res.status}`);
     const data = (await res.json()) as { results: OaWork[]; meta: { next_cursor: string | null } };
@@ -101,14 +104,31 @@ async function fetchOpenAlexWorks(): Promise<Publication[]> {
   return out;
 }
 
-export type PublicationsResult = { items: Publication[]; sources: { orcid: number; openalex: number; biodata: number }; retrieved: string; live: boolean };
+/** Dated copy of OpenAlex's list, used when the live request is refused or fails. */
+function openAlexSnapshot(): Publication[] {
+  return snapshot.works.map((w) => ({
+    title: w.title,
+    venue: w.venue,
+    year: w.year,
+    type: w.type as Publication["type"],
+    domain: inferDomain(w.title),
+    doi: w.doi ?? undefined,
+    url: w.url ?? undefined,
+    authors: w.authors,
+    source: "openalex" as const,
+  }));
+}
+
+export type PublicationsResult = { items: Publication[]; sources: { orcid: number; openalex: number; biodata: number }; retrieved: string; live: boolean; openAlexLive: boolean; snapshotDate: string };
 
 /**
  * Three sources merged into one list. Order of precedence for each field: ORCID, OpenAlex, biodata.
  * Duplicates collapse by DOI or normalised title. Nothing is invented: every record comes from one of the three.
  */
 export async function getPublications(): Promise<PublicationsResult> {
-  const [orcid, openalex] = await Promise.all([fetchOrcid().catch(() => [] as Publication[]), fetchOpenAlexWorks().catch(() => [] as Publication[])]);
+  const [orcid, oaLive] = await Promise.all([fetchOrcid().catch(() => [] as Publication[]), fetchOpenAlexWorks().catch(() => [] as Publication[])]);
+  const openAlexLive = oaLive.length > 0;
+  const openalex = openAlexLive ? oaLive : openAlexSnapshot();
   const byKey = new Map<string, Publication>();
   const byDoi = new Map<string, string>();
   const add = (p: Publication) => {
@@ -134,14 +154,14 @@ export async function getPublications(): Promise<PublicationsResult> {
   };
   [...orcid, ...openalex, ...biodataPublications].forEach(add);
   const items = [...byKey.values()].sort((a, b) => b.year - a.year || a.title.localeCompare(b.title));
-  return { items, sources: { orcid: orcid.length, openalex: openalex.length, biodata: biodataPublications.length }, retrieved: new Date().toISOString().slice(0, 10), live: orcid.length + openalex.length > 0 };
+  return { items, sources: { orcid: orcid.length, openalex: openalex.length, biodata: biodataPublications.length }, retrieved: new Date().toISOString().slice(0, 10), live: orcid.length > 0 || openAlexLive, openAlexLive, snapshotDate: snapshot.retrieved };
 }
 
 export type LiveMetrics = { works: number; citations: number; hIndex: number; i10: number; byYear: { year: number; works: number; cites: number }[]; retrieved: string } | null;
 
 export async function getOpenAlexMetrics(): Promise<LiveMetrics> {
   try {
-    const res = await fetch(`https://api.openalex.org/authors/${OPENALEX_AUTHOR}`, { next: { revalidate: DAY, tags: ["metrics"] } });
+    const res = await fetch(`https://api.openalex.org/authors/${OPENALEX_AUTHOR}${oaKey() ? "?" + oaKey().slice(1) : ""}`, { next: { revalidate: DAY, tags: ["metrics"] } });
     if (!res.ok) return null;
     const a = (await res.json()) as {
       works_count: number;

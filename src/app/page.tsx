@@ -34,7 +34,7 @@ export default async function Home() {
         <Journey />
         <Impact live={metrics} pubCount={pubs.items.length} />
         <Research items={pubs.items} />
-        <Library items={pubs.items} live={pubs.live} retrieved={pubs.retrieved} sources={pubs.sources} />
+        <Library items={pubs.items} live={pubs.live} retrieved={pubs.retrieved} sources={pubs.sources} openAlexLive={pubs.openAlexLive} snapshotDate={pubs.snapshotDate} />
         <Books />
         <Scholars />
         <Patents />
